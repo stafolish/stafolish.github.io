@@ -1,9 +1,9 @@
 # Site settings
 name: stay foolish
 email: ai.xmg.go@gmail.com
-author: majinghui
+# author: majinghui
 # url: http://www.hifreud.com
-resume_site: http://www.hifreud.com/Resume.io/
+# resume_site: http://www.hifreud.com/Resume.io/
 github: https://github.com/stafolish/
 # baseurl: "/LessOrMore"
 description: stay hungry,stay foolish
