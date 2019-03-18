@@ -47,7 +47,7 @@ public class Server {
 
 实际上是因为bossGroup和workGroup分别对应着操作系统中存放tcp三次握手未完成（**syns queue半连接队列**）和已经建立连接(**accept queue 全连接队列**)的两个队列。
 
-![](D:\Git\GitHub\stafolish.github.io\styles\images\netty\boss_work_group.PNG)
+![]({{ '/styles/images/netty\boss_work_group.PNG' | prepend: site.baseurl }})
 
 在连接建立好之后，bossGroup 不对连接进行任何处理，而是将连接交给workGroup处理，而用户业务逻辑的真正处理是在workGroup中完成的。
 
