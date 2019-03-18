@@ -47,6 +47,8 @@ public class Server {
 
 实际上是因为bossGroup和workGroup分别对应着操作系统中存放tcp三次握手未完成（**syns queue半连接队列**）和已经建立连接(**accept queue 全连接队列**)的两个队列。
 
+![](D:\Git\GitHub\stafolish.github.io\styles\images\netty\boss_work_group.PNG)
+
 在连接建立好之后，bossGroup 不对连接进行任何处理，而是将连接交给workGroup处理，而用户业务逻辑的真正处理是在workGroup中完成的。
 
 EventLoopGroup中的新方法如下，实际上用到的只有三个（有一个被标记为过时的方法）。而且第一个方法父接口中也有，覆盖有什么含义吗？好像并没有什么用。
