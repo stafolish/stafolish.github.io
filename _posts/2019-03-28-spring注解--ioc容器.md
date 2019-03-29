@@ -7,10 +7,10 @@ tag: 注解
 
 ---
 
-##### Spring IOC相关注解：
+#### Spring IOC相关注解：
 
-1. ###### 组件：@Conponent一族：@Service，@Controller，@Repository，@Configuration……
-2. ###### 包扫描：
+1. ##### 组件：@Conponent一族：@Service，@Controller，@Repository，@Configuration……
+2. ##### 包扫描：
 
 ```java
 /**
@@ -87,17 +87,17 @@ public class MyTypeFilter implements TypeFilter {
      */
 ```
 
-###### 3.配置类注解：@Configuration--官方注释:Indicates that a class declares one or more @Bean methods and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime
+##### 3.配置类注解：@Configuration--官方注释:Indicates that a class declares one or more @Bean methods and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime
 
 表示此类可以声明一个或多个@bean方法，并且可以由Spring容器处理，以便在运行时为这些bean生成bean定义和服务请求
 
-###### 4.添加第三方包里的bean：@Bean:默认以方法名作为bean的id，也可以指定id如@Bean("person")。
+##### 4.添加第三方包里的bean：@Bean:默认以方法名作为bean的id，也可以指定id如@Bean("person")。
 
-###### 5.懒加载：@Lazy以懒加载的方式创建bean（默认会在容器启动时就创建）。	
+##### 5.懒加载：@Lazy以懒加载的方式创建bean（默认会在容器启动时就创建）。	
 
-###### 6.作用域：@scope：常用有两种方式：ConfigurableBeanFactory.SCOPE_PROTOTYPE
+##### 6.作用域：@scope：常用有两种方式：ConfigurableBeanFactory.SCOPE_PROTOTYPE
 
-​					            ConfigurableBeanFactory.SCOPE_SINGLETON
+###### 					            ConfigurableBeanFactory.SCOPE_SINGLETON
 
 ```java
 @Configuration
@@ -151,7 +151,7 @@ public class Config2 {
      */
 ```
 
-###### 7.条件注册：@Conditional：根据条件注册bean，可以加在类上或方法上。
+##### 7.条件注册：@Conditional：根据条件注册bean，可以加在类上或方法上。
 
 ```java
 @Conditional({LinuxCondition.class})
@@ -207,7 +207,7 @@ public class WindowsCondition implements Condition {
 
 ```
 
-###### 8.快速向Spring容器中添加组件：@Import，可以添加多个类，同样也可以配合@Lazy/@Scope使用。
+##### 8.快速向Spring容器中添加组件：@Import，可以添加多个类，同样也可以配合@Lazy/@Scope使用。
 
 用法：
 
@@ -258,10 +258,82 @@ public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegi
     }
 }
 ```
+##### 9.工厂Bean方式：FactoryBean
+
+```java
+public class ColorFactoryBean implements FactoryBean<Color> {
+    @Override
+    public Color getObject() throws Exception {
+        System.out.println("getObject");
+        return new Color();
+    }
+
+    @Override
+    public Class<?> getObjectType() {
+        return Color.class;
+    }
+
+    @Override
+    public boolean isSingleton() {
+        return true;
+    }
+}
+```
+
+```java
+@Bean
+public ColorFactoryBean colorFactoryBean(){
+    return new ColorFactoryBean();
+}
+```
+
+
+```java
+    @Test
+    public void testImport() {
+        printBeans(context);
+        Blue blue = context.getBean(Blue.class);
+        System.out.println(blue);
+        Object colorFactoryBean = context.getBean("colorFactoryBean");
+        System.out.println("bean type: " + colorFactoryBean.getClass());
+        Object colorFactoryBean2 = context.getBean("colorFactoryBean");
+        System.out.println(colorFactoryBean == colorFactoryBean2);
+
+        Object colorFactoryBean3 = context.getBean("&colorFactoryBean");
+        System.out.println("bean type: " + colorFactoryBean3.getClass());
+    }
+	public void printBeans(AnnotationConfigApplicationContext context) {
+        String[] names = context.getBeanDefinitionNames();
+        for (String name : names) {
+            System.out.println(name);
+        }
+    }
+```
+```
+打印结果：
+org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+org.springframework.context.event.internalEventListenerProcessor
+org.springframework.context.event.internalEventListenerFactory
+config2
+com.xmg.learn.spring.bean.Color
+com.xmg.learn.spring.bean.Red
+com.xmg.learn.spring.bean.Yellow
+com.xmg.learn.spring.bean.Blue
+person
+bill
+colorFactoryBean
+rainBow
+com.xmg.learn.spring.bean.Blue@60f00693
+getObject
+bean type: class com.xmg.learn.spring.bean.Color
+true
+bean type: class com.xmg.learn.spring.bean.ColorFactoryBean
+```
 
 
 
-##### 向容器中添加组件的方式：
+#### 向容器中添加组件的方式
 
 - 包扫描+组件标识注解（@Service/@Controller/@Repository/@Component）
 - @Bean（导入第三方包里的组件）
@@ -274,4 +346,7 @@ public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegi
   - ImportBeanDefinitionRegistrar：手工注册Bean到容器中
 - 使用Spring提供的FactoryBean(工厂Bean)
   - 默认获取到的是FactoryBean调用getObject创建的对象
-  - 要获取FactoryBean本身，我们需要给id前加一个&
+  - 要获取FactoryBean本身，需要给id前加一个&
+```
+
+```
