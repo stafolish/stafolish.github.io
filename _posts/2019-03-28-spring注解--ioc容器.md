@@ -3,7 +3,7 @@ layout: post
 title:  spring注解--ioc容器
 date:   2019-03-28 17:23:00 +0800
 categories: spring
-tag: 注解
+tag: spring注解
 
 ---
 
@@ -347,6 +347,3 @@ bean type: class com.xmg.learn.spring.bean.ColorFactoryBean
 - 使用Spring提供的FactoryBean(工厂Bean)
   - 默认获取到的是FactoryBean调用getObject创建的对象
   - 要获取FactoryBean本身，需要给id前加一个&
-```
-
-```
