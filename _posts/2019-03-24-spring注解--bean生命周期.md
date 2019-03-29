@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  spring注解--bean生命周期
-date:   2019-03-28 17:23:00 +0800
+date:   2019-03-24 10:54:00 +0800
 categories: spring
 tag: spring注解
 ---
