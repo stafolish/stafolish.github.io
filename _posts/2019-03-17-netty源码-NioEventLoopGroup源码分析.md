@@ -15,7 +15,7 @@ tag: NIO
 
 - ##### netty是一个nio的框架。
 
-- ##### 它是为了解决NIO编程的复杂性而存在的。
+- ##### 它是为了解决nio编程的复杂性而存在的。
 
 所以先学好NIO再来看netty就知道它的设计有多么精巧了，netty中NioEventLoop,ByteBuf,Channel分别对应着NIO编程的三个核心Selector,ByteBuffer,Channel,只不过netty对NIO的三个组件都有一定程度的封装和优化。要看懂netty源码，还要有一定的多线程的基础，并且需要了解一些常用设计模式如工厂模式，策略模式，责任链模式等等。
 
