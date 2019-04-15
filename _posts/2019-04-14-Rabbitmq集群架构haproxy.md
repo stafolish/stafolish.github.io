@@ -116,4 +116,4 @@ http://192.168.0.144:8100/rabbitmq-stats
 
 
 
-![]({{ '/styles/images/mq/haproxy.PNG' | prepend: site.baseurl }})
+![]({{ '/styles/images/mq/haproxy.png' | prepend: site.baseurl }})
